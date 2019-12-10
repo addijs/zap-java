@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Pessoa {
+	
 	private String email;
 	private String nome;
 	private String senha;
@@ -44,6 +45,11 @@ public class Pessoa {
 
 	public void adicionarSaida(Mensagem m) {
 		this.caixaSaida.add(m);
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s", this.nome);
 	}
 	
 }
