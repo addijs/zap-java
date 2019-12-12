@@ -1,6 +1,6 @@
 package modelo;
 
-import java.awt.image.BufferedImage;
+//import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Pessoa {

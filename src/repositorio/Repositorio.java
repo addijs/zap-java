@@ -36,23 +36,22 @@ public class Repositorio {
 	public ArrayList<Pessoa> localizarPessoa(String padrao) {
 		ArrayList<Pessoa> pessoas_list = new ArrayList<>();
 		
-		for(Pessoa p : pessoas.values()){
-			if(p.getNome().contains(padrao))
-				pessoas_list.add(p);
-		}
-	
-		return pessoas_list;
-	}
-	
-	public ArrayList<Pessoa> localizarPessoa() {
-		ArrayList<Pessoa> pessoas_list = new ArrayList<>();
+		if(!padrao.equals("")){
+			for(Pessoa p : pessoas.values()){
+				if(p.getNome().contains(padrao))
+					pessoas_list.add(p);
+			}
 		
-		for(Pessoa p : pessoas.values()){
+			return pessoas_list;
+		}
+		
+		for(Pessoa p : pessoas.values()) {
 			pessoas_list.add(p);
 		}
 		
 		return pessoas_list;
 	}
+	
 	
 	
 	public Mensagem localizarMensagem(int id) {
@@ -66,14 +65,15 @@ public class Repositorio {
 	
 	public ArrayList<Mensagem> localizarMensagem(String termo) {
 		ArrayList<Mensagem> msg_list = new ArrayList<>();
-		for(Mensagem msg : mensagens) {
-			if(msg.getTexto().contains(termo)) 
-				msg_list.add(msg);
+		
+		if(!termo.equals("")) {
+			for(Mensagem msg : mensagens) {
+				if(msg.getTexto().contains(termo)) 
+					msg_list.add(msg);
+			}
+			return msg_list;
 		}
-		return msg_list;
-	}
-	
-	public ArrayList<Mensagem> localizarMensagem() {
 		return mensagens;
 	}
+	
 }

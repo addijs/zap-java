@@ -12,7 +12,7 @@ package console;
 
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
+//import javax.swing.ImageIcon;
 
 import fachada.Fachada;
 import modelo.Administrador;
@@ -34,7 +34,7 @@ public class TesteConsole {
 			p = (Pessoa) Fachada.cadastrarAdministrador("admin@ifpb", "123", "admin1", /* null, */ "DTI");
 			System.out.println("\n-------- listar todas pessoas---------");
 			System.out.println(Fachada.listarPessoas(""));
-			System.out.println("\n-------- listar pessoas que contém 'jo' ---------");
+			System.out.println("\n-------- listar pessoas que contï¿½m 'jo' ---------");
 			System.out.println(Fachada.listarPessoas("jo"));
 		}catch (Exception e) {
 			System.out.println("mensagem de erro==>"+ e.getMessage());
@@ -138,7 +138,8 @@ public class TesteConsole {
 		}catch (Exception e) {
 			System.out.println("==>"+ e.getMessage());
 		}
-
+		
+		Fachada.logoff();
 		System.out.println("teste2 concluido");
 	}
 

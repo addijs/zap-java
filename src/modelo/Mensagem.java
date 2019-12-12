@@ -18,6 +18,7 @@ public class Mensagem {
 		this.emitente = emitente;
 		this.destinatario = dest;
 		this.texto = texto;
+		this.data = LocalDateTime.now();
 	}
 
 	public int getId() {
@@ -58,6 +59,8 @@ public class Mensagem {
 
 	@Override
 	public String toString() {
-		return "Mensagem: " + this.texto;
+		return "Mensagem: " + this.texto + "\nEmitente: " + this.emitente +
+				"\nDestinatario: " + this.destinatario + "\nData da mensagem: " +
+				this.data + "\n";
 	}
 }
