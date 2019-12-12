@@ -13,7 +13,7 @@ public class Fachada {
 	
 	public static Pessoa login(String email,  String senha) throws Exception {
 		if(Fachada.obterLogada() != null) {
-			throw new Exception("Já existe um usuário logado!");
+			throw new Exception("Jï¿½ existe um usuï¿½rio logado!");
 		}
 		logado = repo.localizarPessoa(email, senha);
 		return logado;
@@ -28,6 +28,7 @@ public class Fachada {
 	}
 	
 	public static Pessoa cadastrarPessoa(String email, String senha, String nome) {
+		
 		Pessoa p = new Pessoa(email, senha, nome);
 		repo.adicionar(p);
 		return p;
@@ -39,16 +40,9 @@ public class Fachada {
 		return adm;
 	}
 	
-	public static ArrayList<Pessoa> listarPessoas() throws Exception {
-		if(repo.localizarPessoa().isEmpty()) {
-			throw new Exception("Não há nenhuma pessoa cadastrada!");
-		}
-		return repo.localizarPessoa();
-	}
-	
 	public static ArrayList<Pessoa> listarPessoas(String termo) throws Exception {
 		if(repo.localizarPessoa(termo).isEmpty()) {
-			throw new Exception("Não há nenhum nome de pessoa com esse termo!");
+			throw new Exception("Nï¿½o hï¿½ nenhum nome de pessoa com esse termo!");
 		}
 		return repo.localizarPessoa(termo);
 	}
@@ -56,16 +50,17 @@ public class Fachada {
 	
 	public static Mensagem enviarMensagem(String emaildest, String texto) throws Exception {
 		Pessoa logada = Fachada.obterLogada();
-		int saida_len = logada.getCaixaSaida().size();
 		
 		if(logada == null)
-			throw new Exception("É necessário fazer login!");
+			throw new Exception("ï¿½ necessï¿½rio fazer login!");
+		
 		else {
 			
 			if(texto.length() > 200)
 				throw new Exception("Ultrapassa 200 caracteres");
 			
-			for(Pessoa p: repo.localizarPessoa()) {
+			for(Pessoa p: repo.localizarPessoa("")) {
+				
 				if(p.getEmail() == emaildest) {
 					Mensagem new_message = new Mensagem(
 							logada,
@@ -80,21 +75,21 @@ public class Fachada {
 				}
 			}
 			
-			throw new Exception("Esse email não existe!");
+			throw new Exception("Esse email nï¿½o existe!");
 		}
 	}
 		
 	
 	public static ArrayList<Mensagem> listarCaixaEntrada() throws Exception {
 		if(Fachada.obterLogada() == null)
-			throw new Exception("É necessário fazer login!");
+			throw new Exception("ï¿½ necessï¿½rio fazer login!");
 	
 		return Fachada.obterLogada().getCaixaEntrada();
 	}
 	
 	public static ArrayList<Mensagem> listarCaixaSaida() throws Exception {
 		if(Fachada.obterLogada() == null)
-			throw new Exception("É necessário fazer login!");
+			throw new Exception("ï¿½ necessï¿½rio fazer login!");
 		
 		return Fachada.obterLogada().getCaixaSaida();
 	}
@@ -103,7 +98,7 @@ public class Fachada {
 		Pessoa logada = Fachada.obterLogada();
 		
 		if(logada == null)
-			throw new Exception("É necessário fazer login!");
+			throw new Exception("ï¿½ necessï¿½rio fazer login!");
 		
 		Mensagem msg = repo.localizarMensagem(id);
 		
@@ -123,7 +118,7 @@ public class Fachada {
 			}
 		}
 		
-		throw new Exception("Esta mensagem não existe!");
+		throw new Exception("Esta mensagem nï¿½o existe!");
 	}
 	
 	public static ArrayList<Mensagem> espionarMensagens(String termo) throws Exception {
@@ -135,7 +130,7 @@ public class Fachada {
 	
 	public static ArrayList<Mensagem> espionarMensagens() throws Exception {
 		if(Fachada.obterLogada().getClass().getSimpleName().equals("Administrador")) {
-			return repo.localizarMensagem();
+			return repo.localizarMensagem("");
 		}
 		return null;
 	}
@@ -143,14 +138,14 @@ public class Fachada {
 	public static ArrayList<Pessoa> relatorio1() throws Exception {
 		ArrayList<Pessoa> pessoas = new ArrayList<>();
 		
-		for(Pessoa p : repo.localizarPessoa()) {
+		for(Pessoa p : repo.localizarPessoa("")) {
 			if(p.getCaixaSaida().isEmpty()) {
 				pessoas.add(p);
 			}
 		}
 		
 		if(pessoas.isEmpty()) {
-			throw new Exception("Não existem pessoas que não enviaram mensagens!");
+			throw new Exception("Nï¿½o existem pessoas que nï¿½o enviaram mensagens!");
 		}
 		return pessoas;
 	}
@@ -158,14 +153,14 @@ public class Fachada {
 	public static ArrayList<Mensagem> relatorio2() throws Exception {
 		ArrayList<Mensagem> msgs = new ArrayList<>();
 		
-		for(Mensagem m : repo.localizarMensagem()) {
+		for(Mensagem m : repo.localizarMensagem("")) {
 			if(m.getEmitente().equals(m.getDestinatario())) {
 				msgs.add(m);
 			}
 		}
 		
 		if(msgs.isEmpty()) {
-			throw new Exception("Não existem mensagens com remetente igual a destinatario");
+			throw new Exception("Nï¿½o existem mensagens com remetente igual a destinatario");
 		}
 		return msgs;
 	}
